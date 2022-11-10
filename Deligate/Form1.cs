@@ -14,12 +14,11 @@ namespace Deligate
     public partial class Form1 : Form
     {
         string message;
-        void PrintSimpleMessag(string message) => listBox1.Items.Add(message);
+        void PrintSimpleMessage(string message) => listBox1.Items.Add(message);
         public Form1()
         {
             InitializeComponent();
         }
-
         Account account;
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -29,31 +28,31 @@ namespace Deligate
         private void button1_Click(object sender, EventArgs e)
         {
             account = new Account(Convert.ToInt32(textBox2.Text), textBox1.Text);
-            account.RegisterHandler(PrintSimpleMessag);
+            listBox1.Items.Add($"Владелец счёта: {account.fio}, сумма на счете: {account.sum}");
+            account.RegisterHandler(PrintSimpleMessage);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
-            account.Add(Convert.ToInt32(textBox4.Text));
+            account.Add(Convert.ToInt32(textBox3.Text));
             listBox1.Items.Clear();
             listBox1.Items.Add($"Владелец счёта: {account.fio}, сумма на счете: {account.sum}");
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click_1(object sender, EventArgs e)
         {
-            int x = Convert.ToInt32(textBox4.Text);
+            int x = Convert.ToInt32(textBox2.Text);
             if (account.sum < x)
             {
                 listBox1.Items.Clear();
-                listBox1.Items.Add("На счету нету денег");
+                listBox1.Items.Add("На счету нет cредств");
             }
             else
             {
-                account.Take(Convert.ToInt32(textBox4.Text));
+                account.Take(Convert.ToInt32(textBox2.Text));
                 listBox1.Items.Clear();
                 listBox1.Items.Add($"Владелец счёта: {account.fio}, сумма на счете: {account.sum}");
             }
         }
-
     }
 }
